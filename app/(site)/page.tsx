@@ -1,19 +1,50 @@
 import { getProjects } from "@/sanity/sanity-utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
-
-  const projects = await getProjects(); 
+  const projects = await getProjects();
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <h2 className="mt-24 font-bold text-white-700 text-3xl">
+        My Projects go here
+      </h2>
+      <div className="max-w-5xl mx-auto py-20">
+        <h1 className="text-7xl font-extrabold">
+          Hello I&apos;m{" "}
+          <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
+            Loïc
+          </span>{" "}
+          !{" "}
+        </h1>
 
-      <div>My Projects go here</div>
-      <div>
-        {projects.map((project) => (
-          <div key={project._id} className="flex flex-col gap-4">{project.title}</div>))}
+        <p className="mt-3 text-xl text-gray-400">
+          Hola! Check out my projects
+        </p>
+
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <Link href={`/projects/${project.slug}`}
+              key={project._id}
+              className="flex flex-col gap-4 border-2 border-gray-500 rounded-lg p-4 hover:sclae-105 hover:border-orange-40 transition"
+            >
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={400}
+                  height={200}
+                  className="object-cover rounded-lg border border-gray-500"
+                />
+              )}
+              <div className=" text-2xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
+                {project.title}
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-
       {/* <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
