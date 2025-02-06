@@ -3,11 +3,11 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
 type Props ={
-    params: {project: string}
+    params: Promise<{project: string}>
 }
 export default async function Project({params}: Props) {
 
-    const slug = params.project;
+    const slug = (await params).project;
     const project = await getProject(slug);
     return (
         <div className=" items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]" >
